@@ -23,6 +23,7 @@ Mapear a infraestrutura sanitária municipal através de processos de ETL em Pyt
    - Criação de **2 índices integrados**:
      - **IAP (Índice de Atendimento Pleno):** Média da cobertura adequada nos 3 serviços.
      - **IVST (Índice de Vulnerabilidade Sanitária Total):** Média dos déficits acumulados.
+4. **Apresentação da Apresentação dos resultados das Analises (`Apresentacao_Resultados_Censo_2022.pptx`)**
 
 ---
 
