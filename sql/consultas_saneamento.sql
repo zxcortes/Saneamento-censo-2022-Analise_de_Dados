@@ -13,8 +13,8 @@ SELECT
     uf,
     ROUND(CAST(rede_geral_principal_agua AS FLOAT) / total_agua * 100, 2) AS p_cobertura_agua,
     ROUND(CAST(sem_rede_geral_total_agua AS FLOAT) / total_agua * 100, 2) AS p_vulnerabilidade_hidrica,
-    ROUND(CAST(carro_pipa_agua AS FLOAT) / total_agua * 100, 2) AS p_dependencia_carro_pipa,
-    ROUND(CAST(pocos_nascentes_agua AS FLOAT) / total_agua * 100, 2) AS p_pocos_nascentes
+    ROUND(CAST((rede_geral_carro_pipa_agua + sem_rede_geral_carro_pipa_agua) AS FLOAT) / total_agua * 100, 2) AS p_dependencia_carro_pipa,
+    ROUND(CAST((rede_geral_poco_profundo_artesiano_agua + rede_geral_poco_raso_cacimba_agua + rede_geral_fonte_nascente_mina_agua + sem_rede_geral_poco_profundo_artesiano_agua + sem_rede_geral_poco_raso_cacimba_agua + sem_rede_geral_fonte_nascente_mina_agua) AS FLOAT) / total_agua * 100, 2) AS p_pocos_nascentes
 FROM t_Agua_Municipio;
 
 -- 1.2. Indicadores de Esgoto (t_Esgoto_Municipio)
@@ -24,7 +24,7 @@ SELECT
     uf,
     ROUND(CAST(rede_geral_ou_pluvial_esgoto AS FLOAT) / total_esgoto * 100, 2) AS p_cobertura_esgoto,
     ROUND(CAST((fossa_rudimentar_ou_buraco_esgoto + vala_esgoto + rio_lago_corrego_ou_mar_esgoto + nao_tinham_banheiro_nem_sanitario_esgoto) AS FLOAT) / total_esgoto * 100, 2) AS p_esgotamento_inadequado,
-    ROUND(CAST(fossa_septica_esgoto AS FLOAT) / total_esgoto * 100, 2) AS p_fossa_septica,
+    ROUND(CAST(fossa_septica_ou_fossa_filtro_nao_ligada_a_rede_esgoto AS FLOAT) / total_esgoto * 100, 2) AS p_fossa_septica,
     ROUND(CAST(nao_tinham_banheiro_nem_sanitario_esgoto AS FLOAT) / total_esgoto * 100, 2) AS p_sem_banheiro
 FROM t_Esgoto_Municipio;
 
@@ -50,11 +50,11 @@ SELECT
     a.total_agua,
     a.rede_geral_principal_agua,
     a.sem_rede_geral_total_agua,
-    a.carro_pipa_agua,
-    a.pocos_nascentes_agua,
+    (a.rede_geral_carro_pipa_agua + a.sem_rede_geral_carro_pipa_agua) AS carro_pipa_agua,
+    (a.rede_geral_poco_profundo_artesiano_agua + a.rede_geral_poco_raso_cacimba_agua + a.rede_geral_fonte_nascente_mina_agua + a.sem_rede_geral_poco_profundo_artesiano_agua + a.sem_rede_geral_poco_raso_cacimba_agua + a.sem_rede_geral_fonte_nascente_mina_agua) AS pocos_nascentes_agua,
     e.total_esgoto,
     e.rede_geral_ou_pluvial_esgoto,
-    e.fossa_septica_esgoto,
+    e.fossa_septica_ou_fossa_filtro_nao_ligada_a_rede_esgoto AS fossa_septica_esgoto,
     e.fossa_rudimentar_ou_buraco_esgoto,
     e.vala_esgoto,
     e.rio_lago_corrego_ou_mar_esgoto,
