@@ -28,7 +28,7 @@
 
 ---
 
-## Principais resultados
+## Principais Resultados 
 
 Percentual de domicílios atendidos em cada serviço:
 
